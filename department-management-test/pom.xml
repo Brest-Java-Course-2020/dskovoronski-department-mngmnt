@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>department-management-model</artifactId>
+    <artifactId>department-management-test</artifactId>
 
 
 </project>

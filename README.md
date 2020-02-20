@@ -1,1 +1,0 @@
-# dskovoronski-department-mngmnt

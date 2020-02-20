@@ -1,11 +1,19 @@
-package main.java.com.epam.brest.courses.dao;
+package com.epam.brest.courses.dao;
 
-import main.java.com.epam.brest.courses.model.Department;
+import com.epam.brest.courses.model.Department;
 
 import java.util.List;
-public  interface DepartmentDao {
 
-    abstract List<Department> getDepartments();
+public interface DepartmentDao {
+    List<Department> getDepartments();
 
+    Department getDepartmentById(Integer departmentId);
+
+    Department addDepartment(Department department);
+
+    void updateDepartment(Department department);
+
+    void deleteDepartment(Integer departmentId);
 
 }
+
