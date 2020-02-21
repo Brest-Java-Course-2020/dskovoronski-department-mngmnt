@@ -21,7 +21,7 @@ public class DepartmentJdbcDaoImpl implements DepartmentDao {
 
     @Override
     public List<Department> getDepartments() {
-        LOGGER.info("it's my first logger! HELLO!");
+        LOGGER.info("it's my first logger! HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!");
         List<Department> departments = namedParameterJdbcTemplate
                 .query("SELECT d.departmentId, d.departmentName FROM department d ORDER BY d.departmentName",
                         new DepartmentRowMapper());
