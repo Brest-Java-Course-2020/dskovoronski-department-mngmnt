@@ -22,24 +22,29 @@ public class DepartmentJdbcDaoImplTest {
     public void getDepartments() {
         List<Department> departments = departmentDao.getDepartments();
         assertNotNull(departments);
+
     }
 
     @Test
     public void getDepartmentById() {
-        Department department = departmentDao.getDepartmentById(1);
+        Department department = departmentDao.getDepartmentById(2);
+        assertNotNull(department);
 
     }
-
     @Test
     public void addDepartment() {
+       Department department = departmentDao.addDepartment(new Department("Department42"));
+        assertNotNull(department);
     }
 
     @Test
     public void updateDepartment() {
+       departmentDao.updateDepartment(new Department(1,"Department1"));
     }
 
     @Test
     public void deleteDepartment() {
+        departmentDao.deleteDepartment(1);
     }
 
 }
