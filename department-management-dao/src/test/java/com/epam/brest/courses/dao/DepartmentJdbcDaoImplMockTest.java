@@ -43,7 +43,7 @@ public class DepartmentJdbcDaoImplMockTest {
     public void getDepartments() throws SQLException {
         int id = 5;
         String name = "name";
-        Department department = new Department();
+            Department department = new Department();
         ResultSet rs = mock(ResultSet.class); // заглушка без аннотации
         String sql = "select";
         ReflectionTestUtils.setField(departmentDao, "selectSql",sql); // считывание полей из класса Spring.method
