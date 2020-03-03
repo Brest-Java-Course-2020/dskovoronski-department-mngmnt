@@ -22,6 +22,7 @@ public class DepartmentJdbcDaoImplTest {
     public void getDepartments() {
         List<Department> departments = departmentDao.getDepartments();
         assertNotNull(departments);
+        assertTrue(departments.size() > 0);
     }
 
     @Test
