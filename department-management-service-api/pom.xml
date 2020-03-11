@@ -9,7 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>department-management-test</artifactId>
+    <artifactId>department-management-service-api</artifactId>
 
+    <name>Human Resources Service API</name>
 
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.epam.brest.courses</groupId>
+            <artifactId>department-management-model</artifactId>
+        </dependency>
+    </dependencies>
 </project>

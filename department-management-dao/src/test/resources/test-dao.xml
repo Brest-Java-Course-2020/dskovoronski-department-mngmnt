@@ -4,12 +4,22 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="departmentDao" class="com.epam.brest.courses.dao.DepartmentJdbcDaoImpl">
+
+    <bean id="employeeDao" class="com.epam.brest.courses.dao.EmployeeDaoJdbc">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="departmentDao" class="com.epam.brest.courses.dao.DepartmentDaoJdbc">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="departmentDtoDao" class="com.epam.brest.courses.dao.DepartmentDtoDaoJdbc">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg ref="dataSource"/>
     </bean>
+
 
 </beans>

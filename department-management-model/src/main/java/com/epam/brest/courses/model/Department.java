@@ -2,36 +2,27 @@ package com.epam.brest.courses.model;
 
 public class Department {
 
-    public Department() {
-    }
-
-    public Department(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public Department(Integer departmentId, String departmentName) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-    }
-
     private Integer departmentId;
 
     private String departmentName;
+
 
     public Integer getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Integer departmentId) {
+    public Department setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
+        return this;
     }
 
     public String getDepartmentName() {
         return departmentName;
     }
 
-    public void setDepartmentName(String departmentName) {
+    public Department setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+        return this;
     }
 
     @Override

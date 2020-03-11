@@ -15,54 +15,69 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class) // Меняем SpringExtension на Mockito
 
+@ExtendWith(MockitoExtension.class)
 public class DepartmentJdbcDaoImplMockTest {
 
     @InjectMocks
-    private DepartmentJdbcDaoImpl departmentDao; //рабоате только с объектом класса, а не с интерфейсом
+    private DepartmentDaoJdbc departmentDao;
 
     @Mock
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;  //заглушка передаваемого в конструктор объекта DepartmentJdbcDaoImpl
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Captor
-    private ArgumentCaptor<RowMapper<Department>> mapper; //перехватывает данные с объекта class DepartmentRowMapper
+    private ArgumentCaptor<RowMapper<Department>> mapper;
 
-    @AfterEach
-    void after(){
-        verifyNoMoreInteractions(namedParameterJdbcTemplate);
-    }
+    //2.  Without annotation
+    //3. When we use xml
+//    @BeforeEach
+//    void befor(){
+//        namedParameterJdbcTemplate = mock(NamedParameterJdbcTemplate.class);
+//        departmentDao = new DepartmentJdbcDaoImpl(namedParameterJdbcTemplate);
+//    }
+
+
+
+   @AfterEach
+   void after(){
+       verifyNoMoreInteractions(namedParameterJdbcTemplate);
+   }
 
     @Test
     public void getDepartments() throws SQLException {
+
         int id = 5;
         String name = "name";
-            Department department = new Department();
-        ResultSet rs = mock(ResultSet.class); // заглушка без аннотации
-        String sql = "select";
-        ReflectionTestUtils.setField(departmentDao, "selectSql",sql); // считывание полей из класса Spring.method
+        String sql = "something";
+        ResultSet rs = mock(ResultSet.class);
+        Department department = new Department();
 
+        ReflectionTestUtils.setField(departmentDao,"sqlGetAllDepartments", sql);
+
+        when(namedParameterJdbcTemplate.query(anyString(),any(RowMapper.class)))
+                .thenReturn(Collections.singletonList(department));
         when(rs.getInt(anyString())).thenReturn(id);
         when(rs.getString(anyString())).thenReturn(name);
-        when(namedParameterJdbcTemplate.query(anyString(),any(RowMapper.class))).thenReturn(Collections.singletonList(department)); // при вызове namedParameterJdbcTemplate создатся коллекция с один department
 
-        List<Department> departments = departmentDao.getDepartments();
+
+        List<Department> departments = departmentDao.findAll();
         assertNotNull(departments);
-        assertEquals(1,departments.size()); //проверяет количество элементов в коллекции
+        assertEquals(1,departments.size());
         Department dep = departments.get(0);
-        assertSame(dep, department); //сравнивает два объекта принадлежал ли они одному объекту, сравнивает по хэшккоду.
+        assertNotNull(dep);
+        assertSame(dep, department);
 
-        Mockito.verify(namedParameterJdbcTemplate).query(eq(sql),mapper.capture()); // mapper при помощи метода capture перехватывает данные
+        verify(namedParameterJdbcTemplate)
+                .query(eq(sql)
+                        , mapper.capture() );
 
-        RowMapper <Department> rowMapper = mapper.getValue();
+        RowMapper<Department> rowMapper = mapper.getValue();
         assertNotNull(rowMapper);
-        Department result = rowMapper.mapRow(rs, 0);
+        Department result = rowMapper.mapRow(rs,0);
         assertNotNull(result);
         assertEquals(id, result.getDepartmentId().intValue());
         assertEquals(name, result.getDepartmentName());
@@ -70,7 +85,10 @@ public class DepartmentJdbcDaoImplMockTest {
 
     @Test
     public void getDepartmentById() {
+//        Department department = departmentDao.getDepartmentById(1);
+//        assertNotNull(department);
     }
+
     @Test
     public void addDepartment() {
     }
